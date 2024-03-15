@@ -2,29 +2,39 @@ import type { FC } from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Button from '@/app/components/base/button'
-import type { ImageFile } from '@/types/app'
-import { TransferMethod } from '@/types/app'
+import { ImageFile,TransferMethod ,ALLOW_IMAGE_FILE_EXTENSIONS} from '@/types/app'
 
 type ImageLinkInputProps = {
   onUpload: (imageFile: ImageFile) => void
+  onUploaded?:(text:string)=>void,
+  onUploadeded?:()=>void,
 }
 const regex = /^(https?|ftp):\/\//
 const ImageLinkInput: FC<ImageLinkInputProps> = ({
   onUpload,
+  onUploaded,
+  onUploadeded
 }) => {
   const { t } = useTranslation()
   const [imageLink, setImageLink] = useState('')
 
   const handleClick = () => {
-    const imageFile = {
-      type: TransferMethod.remote_url,
-      _id: `${Date.now()}`,
-      fileId: '',
-      progress: regex.test(imageLink) ? 0 : -1,
-      url: imageLink,
-    }
+    const ext=imageLink.split('.')[imageLink.split('.').length-1];
+    const name=imageLink.split('/')[imageLink.split('/').length-1];
 
-    onUpload(imageFile)
+    if(ALLOW_IMAGE_FILE_EXTENSIONS.includes(ext)){
+      const imageFile = {
+        type: TransferMethod.remote_url,
+        _id: `${Date.now()}`,
+        fileId: '',
+        progress: regex.test(imageLink) ? 0 : -1,
+        url: imageLink,
+      }
+      onUpload(imageFile)
+    }else{
+      onUploaded&&onUploaded(`[${name}](${imageLink})`)
+      onUploadeded&&onUploadeded();
+    }
   }
 
   return (

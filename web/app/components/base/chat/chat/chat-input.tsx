@@ -3,6 +3,7 @@ import {
   memo,
   useRef,
   useState,
+  useEffect
 } from 'react'
 import { useContext } from 'use-context-selector'
 import Recorder from 'js-audio-recorder'
@@ -59,6 +60,10 @@ const ChatInput: FC<ChatInputProps> = ({
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value
     setQuery(value)
+  }
+
+  const appendContent=(text:string)=>{
+    setQuery(text+' '+query);
   }
 
   const handleSend = () => {
@@ -142,6 +147,7 @@ const ChatInput: FC<ChatInputProps> = ({
                   settings={visionConfig}
                   onUpload={onUpload}
                   disabled={files.length >= visionConfig.number_limits}
+                  onUploaded={appendContent}
                 />
                 <div className='mx-1 w-[1px] h-4 bg-black/5' />
               </div>

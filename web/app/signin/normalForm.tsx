@@ -140,7 +140,7 @@ const NormalForm = () => {
     <>
       <div className="w-full mx-auto">
         <h2 className="text-[32px] font-bold text-gray-900">{t('login.pageTitle')}</h2>
-        <p className='mt-1 text-sm text-gray-600'>{t('login.welcome')}</p>
+        <p className='mt-1 text-sm text-gray-600' style={{display:'none'}}>{t('login.welcome')}</p>
       </div>
 
       <div className="w-full mx-auto mt-8">
@@ -281,13 +281,13 @@ const NormalForm = () => {
             <Link
               className='text-primary-600'
               target='_blank' rel='noopener noreferrer'
-              href='https://dify.ai/terms'
+              href=''
             >{t('login.tos')}</Link>
             &nbsp;&&nbsp;
             <Link
               className='text-primary-600'
               target='_blank' rel='noopener noreferrer'
-              href='https://dify.ai/privacy'
+              href=''
             >{t('login.pp')}</Link>
           </div>
 

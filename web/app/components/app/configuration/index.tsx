@@ -503,8 +503,7 @@ const Configuration: FC = () => {
         }
 
         if (modelConfig.file_upload)
-          handleSetVisionConfig(modelConfig.file_upload.image, true)
-
+        handleSetVisionConfig(modelConfig.file_upload.image, true)
         syncToPublishedConfig(config)
         setPublishedConfig(config)
         setDatasetConfigs({

@@ -333,7 +333,8 @@ export enum TransferMethod {
   remote_url = 'remote_url',
 }
 
-export const ALLOW_FILE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'webp', 'gif']
+export const ALLOW_FILE_EXTENSIONS = ['pdf','xls','xlsx','doc','docx','txt','html','jpg','jpeg','gif','png','bmp','webp']
+export const ALLOW_IMAGE_FILE_EXTENSIONS = ['jpg','jpeg','gif','png','bmp','webp']
 
 export type VisionSettings = {
   enabled: boolean

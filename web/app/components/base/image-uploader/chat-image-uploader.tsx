@@ -16,16 +16,18 @@ import type { ImageFile, VisionSettings } from '@/types/app'
 
 type UploadOnlyFromLocalProps = {
   onUpload: (imageFile: ImageFile) => void
+  settings: VisionSettings
   disabled?: boolean
-  limit?: number
+  limit?: number,
 }
 const UploadOnlyFromLocal: FC<UploadOnlyFromLocalProps> = ({
   onUpload,
+  settings,
   disabled,
-  limit,
+  limit
 }) => {
   return (
-    <Uploader onUpload={onUpload} disabled={disabled} limit={limit}>
+    <Uploader onUpload={onUpload} disabled={disabled} limit={limit} settings={settings}>
       {hovering => (
         <div
           className={`
@@ -42,15 +44,20 @@ const UploadOnlyFromLocal: FC<UploadOnlyFromLocalProps> = ({
 
 type UploaderButtonProps = {
   methods: VisionSettings['transfer_methods']
+  settings: VisionSettings
   onUpload: (imageFile: ImageFile) => void
   disabled?: boolean
   limit?: number
+  onUploaded?:(text:string)=>void
+  
 }
 const UploaderButton: FC<UploaderButtonProps> = ({
   methods,
+  settings,
   onUpload,
   disabled,
   limit,
+  onUploaded
 }) => {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
@@ -61,6 +68,7 @@ const UploaderButton: FC<UploaderButtonProps> = ({
 
   const handleUpload = (imageFile: ImageFile) => {
     onUpload(imageFile)
+    closePopover()
   }
 
   const closePopover = () => setOpen(false)
@@ -89,7 +97,7 @@ const UploaderButton: FC<UploaderButtonProps> = ({
       </PortalToFollowElemTrigger>
       <PortalToFollowElemContent className="z-50">
         <div className="p-2 w-[260px] bg-white rounded-lg border-[0.5px] border-gray-200 shadow-lg">
-          <ImageLinkInput onUpload={handleUpload} />
+          <ImageLinkInput onUpload={handleUpload} onUploaded={onUploaded} onUploadeded={()=>closePopover()}/>
           {hasUploadFromLocal && (
             <>
               <div className="flex items-center mt-2 px-2 text-xs font-medium text-gray-400">
@@ -101,6 +109,8 @@ const UploaderButton: FC<UploaderButtonProps> = ({
                 onUpload={handleUpload}
                 limit={limit}
                 closePopover={closePopover}
+                onUploaded={onUploaded}
+                settings={settings}
               >
                 {hovering => (
                   <div
@@ -126,11 +136,13 @@ type ChatImageUploaderProps = {
   settings: VisionSettings
   onUpload: (imageFile: ImageFile) => void
   disabled?: boolean
+  onUploaded?:(text:string)=>void,
 }
 const ChatImageUploader: FC<ChatImageUploaderProps> = ({
   settings,
   onUpload,
   disabled,
+  onUploaded,
 }) => {
   const onlyUploadLocal
     = settings.transfer_methods.length === 1
@@ -142,6 +154,7 @@ const ChatImageUploader: FC<ChatImageUploaderProps> = ({
         onUpload={onUpload}
         disabled={disabled}
         limit={+settings.image_file_size_limit!}
+        settings={settings}
       />
     )
   }
@@ -152,6 +165,8 @@ const ChatImageUploader: FC<ChatImageUploaderProps> = ({
       onUpload={onUpload}
       disabled={disabled}
       limit={+settings.image_file_size_limit!}
+      onUploaded={onUploaded}
+      settings={settings}
     />
   )
 }

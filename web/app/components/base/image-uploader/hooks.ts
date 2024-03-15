@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { imageUpload } from './utils'
 import { useToastContext } from '@/app/components/base/toast'
-import { ALLOW_FILE_EXTENSIONS, TransferMethod } from '@/types/app'
+import { ALLOW_FILE_EXTENSIONS,ALLOW_IMAGE_FILE_EXTENSIONS, TransferMethod } from '@/types/app'
 import type { ImageFile, VisionSettings } from '@/types/app'
 
 export const useImageFiles = () => {
@@ -115,9 +115,10 @@ type useLocalUploaderProps = {
   disabled?: boolean
   limit?: number
   onUpload: (imageFile: ImageFile) => void
+  onUploaded?:(text:string)=>void
 }
 
-export const useLocalFileUploader = ({ limit, disabled = false, onUpload }: useLocalUploaderProps) => {
+export const useLocalFileUploader = ({ limit, disabled = false, onUpload,onUploaded }: useLocalUploaderProps) => {
   const { notify } = useToastContext()
   const params = useParams()
   const { t } = useTranslation()
@@ -127,53 +128,81 @@ export const useLocalFileUploader = ({ limit, disabled = false, onUpload }: useL
       // TODO: leave some warnings?
       return
     }
+    const ext=file.name.split('.')[file.name.split('.').length-1];
 
-    if (!ALLOW_FILE_EXTENSIONS.includes(file.type.split('/')[1]))
+    if (!ALLOW_FILE_EXTENSIONS.includes(ext)) //改过
       return
-
-    if (limit && file.size > limit * 1024 * 1024) {
-      notify({ type: 'error', message: t('common.imageUploader.uploadFromComputerLimit', { size: limit }) })
-      return
-    }
-
-    const reader = new FileReader()
-    reader.addEventListener(
-      'load',
-      () => {
-        const imageFile = {
-          type: TransferMethod.local_file,
-          _id: `${Date.now()}`,
-          fileId: '',
-          file,
-          url: reader.result as string,
-          base64Url: reader.result as string,
-          progress: 0,
+      
+    if(!ALLOW_IMAGE_FILE_EXTENSIONS.includes(ext)){
+      
+      const url = 'https://www.jisuan.mobi/ai/';
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      // 创建 HTTP 请求
+      var xhr = new XMLHttpRequest();
+      // 对ajax对象进行配置
+      // 只有post方法能实现文件上传
+      xhr.open('post',url+'upload.php')
+      // 把文件发送到服务端 发送ajax请求
+      xhr.send(formData);
+      // 监听服务器端响应给客户端的数据
+      xhr.onload = function(){
+        // 如果服务器端返回的http状态码为200 请求成功
+        if(xhr.status == 200){
+          // 将服务器端返回的数据显示在控制台中
+          const fileName=file.name;
+          const fileUrl=url+'uploads/'+xhr.responseText
+          onUploaded&&onUploaded(`[${fileName}](${fileUrl})`)
+        }else{
+          console.log("上传失败，出错了")
         }
-        onUpload(imageFile)
-        imageUpload({
-          file: imageFile.file,
-          onProgressCallback: (progress) => {
-            onUpload({ ...imageFile, progress })
-          },
-          onSuccessCallback: (res) => {
-            onUpload({ ...imageFile, fileId: res.id, progress: 100 })
-          },
-          onErrorCallback: () => {
-            notify({ type: 'error', message: t('common.imageUploader.uploadFromComputerUploadError') })
-            onUpload({ ...imageFile, progress: -1 })
-          },
-        }, !!params.token)
-      },
-      false,
-    )
-    reader.addEventListener(
-      'error',
-      () => {
-        notify({ type: 'error', message: t('common.imageUploader.uploadFromComputerReadError') })
-      },
-      false,
-    )
-    reader.readAsDataURL(file)
+      }
+    }else{
+      if (limit && file.size > limit * 1024 * 1024) {
+        notify({ type: 'error', message: t('common.imageUploader.uploadFromComputerLimit', { size: limit }) })
+        return
+      }
+
+      const reader = new FileReader()
+      reader.addEventListener(
+        'load',
+        () => {
+          const imageFile = {
+            type: TransferMethod.local_file,
+            _id: `${Date.now()}`,
+            fileId: '',
+            file,
+            url: reader.result as string,
+            base64Url: reader.result as string,
+            progress: 0,
+          }
+          onUpload(imageFile)
+          imageUpload({
+            file: imageFile.file,
+            onProgressCallback: (progress) => {
+              onUpload({ ...imageFile, progress })
+            },
+            onSuccessCallback: (res) => {
+              onUpload({ ...imageFile, fileId: res.id, progress: 100 })
+            },
+            onErrorCallback: () => {
+              notify({ type: 'error', message: t('common.imageUploader.uploadFromComputerUploadError') })
+              onUpload({ ...imageFile, progress: -1 })
+            },
+          }, !!params.token)
+        },
+        false,
+      )
+      reader.addEventListener(
+        'error',
+        () => {
+          notify({ type: 'error', message: t('common.imageUploader.uploadFromComputerReadError') })
+        },
+        false,
+      )
+      reader.readAsDataURL(file)
+    }
   }, [disabled, limit, notify, t, onUpload, params.token])
 
   return { disabled, handleLocalFileUpload }

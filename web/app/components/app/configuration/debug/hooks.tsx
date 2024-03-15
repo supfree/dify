@@ -128,6 +128,10 @@ export const useConfigFromDebugContext = () => {
     appId,
     supportCitationHitInfo: true,
   }
+  if(modelConfig.model_id.includes('gpt-4-gizmo')){
+    config.file_upload.image.enabled=true;
+    config.file_upload.image.type='gizmo';
+  }
 
   return config
 }

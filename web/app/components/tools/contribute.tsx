@@ -9,7 +9,7 @@ const Contribute: FC = () => {
   const { t } = useTranslation()
 
   return (
-    <div className='shrink-0 p-2'>
+    <div className='shrink-0 p-2' style={{display:'none'}}>
       <div className='inline-block p-2 bg-white shadow-lg rounded-lg'>
         <Heart02 className='w-3 h-3 text-[#EE46BC]' />
       </div>

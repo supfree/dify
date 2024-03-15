@@ -125,7 +125,7 @@ const ChatWrapper = () => {
     currentConversationItem,
     isMobile,
   ])
-
+  
   return (
     <Chat
       config={appConfig}

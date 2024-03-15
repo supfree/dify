@@ -100,7 +100,7 @@ export default function AppSelector({ isMobile }: IAppSelecotr) {
                         <div>{t('common.userProfile.settings')}</div>
                       </div>
                     </Menu.Item>
-                    <Menu.Item>
+                    <Menu.Item style={{display:'none'}}>
                       <Link
                         className={classNames(itemClassName, 'group justify-between')}
                         href='https://feedback.dify.ai/'
@@ -109,7 +109,7 @@ export default function AppSelector({ isMobile }: IAppSelecotr) {
                         <ArrowUpRight className='hidden w-[14px] h-[14px] text-gray-500 group-hover:flex' />
                       </Link>
                     </Menu.Item>
-                    <Menu.Item>
+                    <Menu.Item style={{display:'none'}}>
                       <Link
                         className={classNames(itemClassName, 'group justify-between')}
                         href='https://discord.gg/5AEfbxcd9k'
@@ -118,7 +118,7 @@ export default function AppSelector({ isMobile }: IAppSelecotr) {
                         <ArrowUpRight className='hidden w-[14px] h-[14px] text-gray-500 group-hover:flex' />
                       </Link>
                     </Menu.Item>
-                    <Menu.Item>
+                    <Menu.Item style={{display:'none'}}>
                       <Link
                         className={classNames(itemClassName, 'group justify-between')}
                         href={
@@ -131,7 +131,7 @@ export default function AppSelector({ isMobile }: IAppSelecotr) {
                     </Menu.Item>
                     {
                       document?.body?.getAttribute('data-public-site-about') !== 'hide' && (
-                        <Menu.Item>
+                        <Menu.Item style={{display:'none'}}>
                           <div className={classNames(itemClassName, 'justify-between')} onClick={() => setAboutVisible(true)}>
                             <div>{t('common.userProfile.about')}</div>
                             <div className='flex items-center'>

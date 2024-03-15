@@ -7,7 +7,7 @@ const AppList = async () => {
 }
 
 export const metadata = {
-  title: 'Datasets - Dify',
+  title: 'Datasets - 元数点Ai',
 }
 
 export default AppList
