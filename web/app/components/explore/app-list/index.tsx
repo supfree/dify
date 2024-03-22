@@ -99,7 +99,7 @@ const Apps: FC = () => {
 
   return (
     <div className="h-full flex flex-col border-l border-gray-200">
-      <div className="shrink-0 pt-6 px-12">
+      <div className="shrink-0 pt-6 px-12" style={{ display: 'none' }}>
         <div className={`mb-1 ${s.textGradient} text-xl font-semibold`}>
           {t('explore.apps.title')}
         </div>

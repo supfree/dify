@@ -91,7 +91,7 @@ const SideBar: FC<IExploreSideBarProps> = ({
 
   return (
     <div className='w-fit sm:w-[216px] shrink-0 pt-6 px-4 border-gray-200 cursor-pointer'>
-      <div>
+      <div style={{ display: 'none' }}>
         <Link
           href='/explore/apps'
           className={cn(isDiscoverySelected ? 'text-primary-600  bg-white font-semibold' : 'text-gray-700 font-medium hover:bg-gray-200', 'flex items-center pc:justify-start pc:w-full mobile:justify-center mobile:w-fit h-9 px-3 mobile:px-2 gap-2 rounded-lg')}

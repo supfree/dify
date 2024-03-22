@@ -91,7 +91,7 @@ const Main: FC<IMainProps> = ({
       if (canReplaceLogo)
         document.title = `${siteInfo.title}`
       else
-        document.title = `${siteInfo.title} - Powered by 元数点Ai`
+        document.title = `${siteInfo.title} - Powered by 中国电建`
     }
   }, [siteInfo?.title, canReplaceLogo])
 

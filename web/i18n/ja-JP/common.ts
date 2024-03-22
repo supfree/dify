@@ -102,7 +102,7 @@ const translation = {
   },
   menus: {
     status: 'ベータ版',
-    explore: '探索',
+    explore: '工作',
     apps: 'スタジオ',
     plugins: 'プラグイン',
     pluginsTips: 'サードパーティのプラグインを統合するか、ChatGPT互換のAIプラグインを作成します。',
