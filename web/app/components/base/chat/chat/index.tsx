@@ -6,6 +6,7 @@ import {
   memo,
   useEffect,
   useRef,
+  useState
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useThrottleEffect } from 'ahooks'
@@ -48,6 +49,13 @@ export type ChatProps = {
   chatNode?: ReactNode
   onFeedback?: (messageId: string, feedback: Feedback) => void
 }
+
+interface VoiceRecorderProps {}  
+  
+interface Chunk {  
+  data: Blob;  
+}  
+
 const Chat: FC<ChatProps> = ({
   config,
   onSend,
@@ -76,6 +84,83 @@ const Chat: FC<ChatProps> = ({
   const chatContainerInnerRef = useRef<HTMLDivElement>(null)
   const chatFooterRef = useRef<HTMLDivElement>(null)
   const chatFooterInnerRef = useRef<HTMLDivElement>(null)
+
+  const [showVoice, setShowVoice] = useState(false)
+
+
+  //录音开始=============
+
+  const [isRecording, setIsRecording] = useState(false);  
+  const audioContext = useRef<AudioContext>(new (window.AudioContext || window.webkitAudioContext)());  
+  const source = useRef<MediaStreamAudioSourceNode | null>(null);  
+  const analyser = useRef<AnalyserNode | null>(null);  
+  const dataArray = useRef<Uint8Array>(new Uint8Array(0));  
+  const recorder = useRef<MediaRecorder | null>(null);  
+  const chunks = useRef<Chunk[]>([]);  
+
+  
+  useEffect(() => {  
+    const requestMicrophoneAccess = async () => {  
+      try {  
+        const stream = navigator.mediaDevices.getUserMedia({ audio: true });  
+  
+        stream  
+          .then((stream) => {  
+            source.current = audioContext.current.createMediaStreamSource(stream);  
+            analyser.current = audioContext.current.createAnalyser();  
+            analyser.current.fftSize = 2048;  
+            const bufferLength = analyser.current.frequencyBinCount;  
+            dataArray.current = new Uint8Array(bufferLength);  
+            source.current.connect(analyser.current);  
+      
+            const intervalId = setInterval(checkMicrophone, 100);  
+      
+            return () => {  
+              clearInterval(intervalId);  
+              if (recorder.current) {  
+                recorder.current.stop();  
+              }  
+              source.current?.disconnect();  
+            };  
+          })  
+          .catch((error) => {  
+            console.error('Error accessing the microphone:', error);  
+          });  
+      } catch (error) {  
+        if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {  
+          // 用户拒绝权限  
+
+        } else {  
+          // 其他错误  
+        }  
+      }  
+    };  
+  
+    // 请求麦克风权限  
+    requestMicrophoneAccess();  
+  }, []);
+
+  useEffect(() => {  
+
+  }, []); // 空依赖数组确保此effect只运行一次（组件挂载时）  
+  
+  const checkMicrophone = () => {  
+    if (analyser.current) {  
+      analyser.current.getByteTimeDomainData(dataArray.current);  
+      const average = dataArray.current.reduce((a, b) => a + b, 0) / dataArray.current.length;  
+      const threshold = 0.05; // 调整这个阈值以适应你的需求  
+  
+      if (average > threshold && !isRecording) {  
+        //startRecording();  
+      } else if (average <= threshold && isRecording) {  
+        //stopRecording();  
+      }  
+    }  
+  }; 
+  
+
+
+  //录音结束
 
   const handleScrolltoBottom = () => {
     if (chatContainerRef.current)
@@ -141,7 +226,7 @@ const Chat: FC<ChatProps> = ({
           ref={chatContainerRef}
           className={`relative h-full overflow-y-auto ${chatContainerclassName}`}
         >
-          {chatNode}
+          {chatNode} <span onClick={()=>setShowVoice(true)}>测试全屏</span>
           <div
             ref={chatContainerInnerRef}
             className={`${chatContainerInnerClassName}`}
@@ -217,6 +302,9 @@ const Chat: FC<ChatProps> = ({
           </div>
         </div>
       </div>
+      {showVoice&&<div style={{width:'100%',height:'100%',backgroundColor:'black',position:'fixed',top:0,left:0,zIndex:20}}>
+            <div onClick={()=>setShowVoice(false)} style={{backgroundColor:'#EA4D3E',width:'80px',height:'80px',lineHeight:'80px',textAlign:'center',borderRadius:'50%',color:'white',fontSize:'30px',fontWeight:'bold',position:'absolute',left:'50%',marginLeft:'-40px',bottom:'100px'}}>×</div>
+      </div>}
     </ChatContextProvider>
   )
 }

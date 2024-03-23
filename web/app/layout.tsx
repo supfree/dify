@@ -8,7 +8,7 @@ import './styles/globals.css'
 import './styles/markdown.scss'
 
 export const metadata = {
-  title: '中国电建',
+  title: '元数点Ai',
 }
 
 export const viewport: Viewport = {

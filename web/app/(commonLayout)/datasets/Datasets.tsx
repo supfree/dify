@@ -32,7 +32,7 @@ const Datasets = ({
 
   useEffect(() => {
     loadingStateRef.current = isLoading
-    document.title = `${t('dataset.knowledge')} - 中国电建`
+    document.title = `${t('dataset.knowledge')} - 元数点Ai`
   }, [isLoading])
 
   useEffect(() => {
