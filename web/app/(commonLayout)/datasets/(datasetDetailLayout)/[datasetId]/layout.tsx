@@ -195,7 +195,7 @@ const DatasetDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
 
   useEffect(() => {
     if (datasetRes)
-      document.title = `${datasetRes.name || 'Dataset'} - 元数点Ai`
+      document.title = `${datasetRes.name || 'Dataset'} - AI情报参谋`
   }, [datasetRes])
 
   if (!datasetRes && !error)
