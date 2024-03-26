@@ -2,8 +2,7 @@ import type { FC } from 'react'
 import {
   memo,
   useRef,
-  useState,
-  useEffect
+  useState
 } from 'react'
 import { useContext } from 'use-context-selector'
 import Recorder from 'js-audio-recorder'
@@ -30,6 +29,7 @@ import {
   useDraggableUploader,
   useImageFiles,
 } from '@/app/components/base/image-uploader/hooks'
+import Voice from './voice'
 
 type ChatInputProps = {
   visionConfig?: VisionConfig
@@ -57,13 +57,14 @@ const ChatInput: FC<ChatInputProps> = ({
   const { onDragEnter, onDragLeave, onDragOver, onDrop, isDragActive } = useDraggableUploader<HTMLTextAreaElement>({ onUpload, files, visionConfig })
   const isUseInputMethod = useRef(false)
   const [query, setQuery] = useState('')
+  const [showVoice, setShowVoice] = useState(false)
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value
     setQuery(value)
   }
 
-  const appendContent=(text:string)=>{
-    setQuery(text+' '+query);
+  const appendContent = (text: string) => {
+    setQuery(text + ' ' + query);
   }
 
   const handleSend = () => {
@@ -192,13 +193,20 @@ const ChatInput: FC<ChatInputProps> = ({
               )
               : speechToTextConfig?.enabled
                 ? (
-                  <div
-                    className='group flex justify-center items-center ml-2 w-8 h-8 hover:bg-primary-50 rounded-lg cursor-pointer'
-                    onClick={handleVoiceInputShow}
-                  >
-                    <Microphone01 className='block w-4 h-4 text-gray-500 group-hover:hidden' />
-                    <Microphone01Solid className='hidden w-4 h-4 text-primary-600 group-hover:block' />
-                  </div>
+                    <div
+                      className='group flex justify-center items-center ml-2 w-8 h-8 hover:bg-primary-50 rounded-lg cursor-pointer'
+                      onClick={handleVoiceInputShow}
+                    >
+                      <Microphone01 className='block w-4 h-4 text-gray-500 group-hover:hidden' />
+
+                      <Microphone01Solid className='hidden w-4 h-4 text-primary-600 group-hover:block' />
+                      <div
+                      className='group flex justify-center items-center ml-2 w-8 h-8 hover:bg-primary-50 rounded-lg cursor-pointer'
+                      onClick={()=>setShowVoice(true)}
+                    >
+                      📞
+                    </div>
+                    </div>
                 )
                 : null
           }
@@ -227,6 +235,7 @@ const ChatInput: FC<ChatInputProps> = ({
           )
         }
       </div>
+      {showVoice&&(<Voice onClose={()=>setShowVoice(false)}/>)}
     </div>
   )
 }

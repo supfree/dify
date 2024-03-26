@@ -142,7 +142,7 @@ const Chat: FC<ChatProps> = ({
           ref={chatContainerRef}
           className={`relative h-full overflow-y-auto ${chatContainerclassName}`}
         >
-          {chatNode} <span onClick={()=>setShowVoice(true)}>测试全屏</span>
+          {chatNode}
           <div
             ref={chatContainerInnerRef}
             className={`${chatContainerInnerClassName}`}

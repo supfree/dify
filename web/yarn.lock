@@ -1674,6 +1674,11 @@ copy-to-clipboard@^3.3.3:
   dependencies:
     toggle-selection "^1.0.6"
 
+core-js@^3.36.1:
+  version "3.36.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/core-js/-/core-js-3.36.1.tgz"
+  integrity sha512-BTvUrwxVBezj5SZ3f10ImnX2oRByMxql3EimVqMysepbC9EeMUOpLwdy6Eoili2x6E4kf+ZUB5k/+Jv55alPfA==
+
 cose-base@^1.0.0:
   version "1.0.3"
   resolved "https://mirrors.huaweicloud.com/repository/npm/cose-base/-/cose-base-1.0.3.tgz"
@@ -5647,6 +5652,11 @@ react-sortablejs@^6.1.4:
     classnames "2.3.1"
     tiny-invariant "1.2.0"
 
+react-speech-recognition@^3.10.0:
+  version "3.10.0"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/react-speech-recognition/-/react-speech-recognition-3.10.0.tgz"
+  integrity sha512-EVSr4Ik8l9urwdPiK2r0+ADrLyDDrjB0qBRdUWO+w2MfwEBrj6NuRmy1GD3x7BU/V6/hab0pl8Lupen0zwlJyw==
+
 react-syntax-highlighter@^15.5.0:
   version "15.5.0"
   resolved "https://mirrors.huaweicloud.com/repository/npm/react-syntax-highlighter/-/react-syntax-highlighter-15.5.0.tgz"
@@ -5745,7 +5755,7 @@ refractor@^3.6.0:
     parse-entities "^2.0.0"
     prismjs "~1.27.0"
 
-regenerator-runtime@^0.14.0:
+regenerator-runtime@^0.14.0, regenerator-runtime@^0.14.1:
   version "0.14.1"
   resolved "https://mirrors.huaweicloud.com/repository/npm/regenerator-runtime/-/regenerator-runtime-0.14.1.tgz"
   integrity sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==

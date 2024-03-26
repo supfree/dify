@@ -90,14 +90,17 @@ const VoiceInput = ({
     let isPublic = false
 
     if (params.token) {
-      url = '/audio-to-text'
+      //url = '/audio-to-text'
+      url ='https://www.jisuan.mobi/ai/voice.php?t='+new Date();
       isPublic = true
     }
     else if (params.appId) {
       if (pathname.search('explore/installed') > -1)
-        url = `/installed-apps/${params.appId}/audio-to-text`
+        //url = `/installed-apps/${params.appId}/audio-to-text`
+        url ='https://www.jisuan.mobi/ai/voice.php?t='+new Date();
       else
-        url = `/apps/${params.appId}/audio-to-text`
+        //url = `/apps/${params.appId}/audio-to-text`
+        url ='https://www.jisuan.mobi/ai/voice.php?t='+new Date();
     }
 
     try {
