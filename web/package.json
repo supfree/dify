@@ -29,6 +29,7 @@
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.9",
     "ahooks": "^3.7.5",
+    "audiobuffer-to-wav": "^1.0.0",
     "classnames": "^2.3.2",
     "copy-to-clipboard": "^3.3.3",
     "core-js": "^3.36.1",
@@ -65,7 +66,6 @@
     "react-papaparse": "^4.1.0",
     "react-slider": "^2.0.4",
     "react-sortablejs": "^6.1.4",
-    "react-speech-recognition": "^3.10.0",
     "react-syntax-highlighter": "^15.5.0",
     "react-tooltip": "5.8.3",
     "react-window": "^1.8.9",
@@ -81,7 +81,8 @@
     "sharp": "^0.33.2",
     "sortablejs": "^1.15.0",
     "swr": "^2.1.0",
-    "use-context-selector": "^1.4.1"
+    "use-context-selector": "^1.4.1",
+    "voice-activity-emitter": "^2.0.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.36.0",

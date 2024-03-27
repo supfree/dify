@@ -66,6 +66,21 @@ const ChatInput: FC<ChatInputProps> = ({
   const appendContent = (text: string) => {
     setQuery(text + ' ' + query);
   }
+  //语音转文字填入  
+  const setQueryValue=(text:string)=>{
+    setQuery(text);
+
+    if (onSend&&1==2) {
+      onSend(text, files.filter(file => file.progress !== -1).map(fileItem => ({
+        type: 'image',
+        transfer_method: fileItem.type,
+        url: fileItem.url,
+        upload_file_id: fileItem.fileId,
+      })))
+      setQuery('')
+      onClear()
+    }
+  }
 
   const handleSend = () => {
     if (onSend) {
@@ -235,7 +250,7 @@ const ChatInput: FC<ChatInputProps> = ({
           )
         }
       </div>
-      {showVoice&&(<Voice onClose={()=>setShowVoice(false)}/>)}
+      {showVoice&&(<Voice onClose={()=>setShowVoice(false)} onVoiceEnd={setQueryValue}/>)}
     </div>
   )
 }
