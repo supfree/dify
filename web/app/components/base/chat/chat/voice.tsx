@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useMemo } from 'react';
 import { useChatWithHistoryContext } from '../chat-with-history/context'
 import VoiceActivityEmitter from 'voice-activity-emitter';
 import toWav from 'audiobuffer-to-wav';
@@ -7,16 +7,18 @@ import toWav from 'audiobuffer-to-wav';
 type VoiceType = {
     onClose: () => void,
     onVoiceEnd:(text:string)=>void
+
 }
 
 
-const Voice: React.FC<VoiceType> = ({ onClose,onVoiceEnd }) => {
+const Voice: React.FC<VoiceType> = ({ onClose,onVoiceEnd}) => {
     const { appData } = useChatWithHistoryContext()
-    const [startListening, setStartListening] = useState(true)
-
+    let enableEmitter=window.enableEmitter;
+    enableEmitter=true;
+    
     function handleSegment(audioBuffer){
-        if (startListening) {
-            setStartListening(false);
+        if (!!enableEmitter) {
+            enableEmitter=false;
             const blob = new Blob([toWav(audioBuffer)]);
             const formData = new FormData();
             formData.append('file', blob, 'audio.wav');
@@ -28,7 +30,7 @@ const Voice: React.FC<VoiceType> = ({ onClose,onVoiceEnd }) => {
             xhr.send(formData);
             xhr.onload = function () {
                 if (xhr.status == 200) {
-                    setStartListening(true);
+                    enableEmitter=true;
                     const result=JSON.parse(xhr.responseText);
                     const text=result.text;
                     onVoiceEnd(text);
@@ -38,29 +40,20 @@ const Voice: React.FC<VoiceType> = ({ onClose,onVoiceEnd }) => {
             }
         }
     }
- 
+
+    const startListening=useMemo((enableEmitter)=>enableEmitter,[window.enableEmitter]);
+    console.log(startListening)
     useEffect(() => {
-        const emitter = VoiceActivityEmitter({minSegmentLengthMS:500,smoothingTimeConstant:0.8});
-        emitter.startListening();
-        
-        emitter.on('start', () => {
-            //console.log('开始说话了',new Date());
-        });
-        console.log(startListening,7777777);
-        emitter.on('segment', ({ audioBuffer }) => {
-            //emitter.stopListening();
-            handleSegment(audioBuffer)
-        });
-        emitter.on('end', () => {
-            //console.log('说话结束了',new Date());
-        });
-        
-        return () => {
-            console.log('卸载掉');
-            setStartListening(false);
-            emitter.stopListening();
-            delete emitter;
+        if(!window.isEmitter){
+            window!.isEmitter=true;
+            const emitter = VoiceActivityEmitter({minSegmentLengthMS:500,smoothingTimeConstant:0.8});
+            emitter.startListening();
+            emitter.on('segment', ({ audioBuffer }) => {
+                //emitter.stopListening();
+                handleSegment(audioBuffer,)
+            });
         }
+        return ()=>enableEmitter=false;
     }, []);
 
 

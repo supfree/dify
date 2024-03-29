@@ -58,6 +58,7 @@ const ChatInput: FC<ChatInputProps> = ({
   const isUseInputMethod = useRef(false)
   const [query, setQuery] = useState('')
   const [showVoice, setShowVoice] = useState(false)
+
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value
     setQuery(value)
@@ -67,10 +68,10 @@ const ChatInput: FC<ChatInputProps> = ({
     setQuery(text + ' ' + query);
   }
   //语音转文字填入  
-  const setQueryValue=(text:string)=>{
+  const setQueryValue = (text: string) => {
     setQuery(text);
 
-    if (onSend&&1==2) {
+    if (onSend && 1 == 2) {
       onSend(text, files.filter(file => file.progress !== -1).map(fileItem => ({
         type: 'image',
         transfer_method: fileItem.type,
@@ -144,7 +145,12 @@ const ChatInput: FC<ChatInputProps> = ({
           ${!!query.trim() && 'text-primary-600'}
         `}
       />
+      <div
+        className='w-5 h-5 text-gray-300 group-hover:text-primary-600'
+        onClick={() => setShowVoice(true)}
+      >📞</div>
     </div>
+
   )
 
   return (
@@ -208,20 +214,15 @@ const ChatInput: FC<ChatInputProps> = ({
               )
               : speechToTextConfig?.enabled
                 ? (
-                    <div
-                      className='group flex justify-center items-center ml-2 w-8 h-8 hover:bg-primary-50 rounded-lg cursor-pointer'
-                      onClick={handleVoiceInputShow}
-                    >
-                      <Microphone01 className='block w-4 h-4 text-gray-500 group-hover:hidden' />
+                  <div
+                    className='group flex justify-center items-center ml-2 w-8 h-8 hover:bg-primary-50 rounded-lg cursor-pointer'
+                    onClick={handleVoiceInputShow}
+                  >
+                    <Microphone01 className='block w-4 h-4 text-gray-500 group-hover:hidden' />
 
-                      <Microphone01Solid className='hidden w-4 h-4 text-primary-600 group-hover:block' />
-                      <div
-                      className='group flex justify-center items-center ml-2 w-8 h-8 hover:bg-primary-50 rounded-lg cursor-pointer'
-                      onClick={()=>setShowVoice(true)}
-                    >
-                      📞
-                    </div>
-                    </div>
+                    <Microphone01Solid className='hidden w-4 h-4 text-primary-600 group-hover:block' />
+
+                  </div>
                 )
                 : null
           }
@@ -250,7 +251,7 @@ const ChatInput: FC<ChatInputProps> = ({
           )
         }
       </div>
-      {showVoice&&(<Voice onClose={()=>setShowVoice(false)} onVoiceEnd={setQueryValue}/>)}
+      {showVoice && (<Voice onClose={() => setShowVoice(false)} onVoiceEnd={setQueryValue} />)}
     </div>
   )
 }
