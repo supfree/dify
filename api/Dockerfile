@@ -1,6 +1,10 @@
 # base image
 FROM python:3.10-slim-bookworm AS base
 
+RUN mkdir ~/.pip && \
+    echo "[global]\nindex-url = https://mirrors.aliyun.com/pypi/simple/\ntrusted-host = mirrors.aliyun.com" > ~/.pip/pip.conf
+
+
 LABEL maintainer="takatost@gmail.com"
 
 # install packages
