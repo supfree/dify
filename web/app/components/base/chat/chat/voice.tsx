@@ -12,13 +12,15 @@ type VoiceType = {
 
 
 const Voice: React.FC<VoiceType> = ({ onClose,onVoiceEnd}) => {
-    const { appData } = useChatWithHistoryContext()
-    let enableEmitter=window.enableEmitter;
-    enableEmitter=true;
-    
-    function handleSegment(audioBuffer){
-        if (!!enableEmitter) {
-            enableEmitter=false;
+    const { appData } = useChatWithHistoryContext();
+    const [startListening,setStartListening]=useState(true);
+
+    window.enableEmitter=true;
+  
+    function handleSegment(audioBuffer:AudioBuffer){
+        if (!!window.enableEmitter) {
+            window.enableEmitter=false;
+            setStartListening(false);
             const blob = new Blob([toWav(audioBuffer)]);
             const formData = new FormData();
             formData.append('file', blob, 'audio.wav');
@@ -30,32 +32,35 @@ const Voice: React.FC<VoiceType> = ({ onClose,onVoiceEnd}) => {
             xhr.send(formData);
             xhr.onload = function () {
                 if (xhr.status == 200) {
-                    enableEmitter=true;
                     const result=JSON.parse(xhr.responseText);
                     const text=result.text;
                     onVoiceEnd(text);
                     console.log(startListening,audioBuffer,text);
                 } else {
                 }
+                window.enableEmitter=true;
+                setStartListening(true);
             }
         }
     }
 
-    const startListening=useMemo((enableEmitter)=>enableEmitter,[window.enableEmitter]);
-    console.log(startListening)
+
+    console.log(startListening,enableEmitter,888)
     useEffect(() => {
         if(!window.isEmitter){
             window!.isEmitter=true;
+            setStartListening(true);
             const emitter = VoiceActivityEmitter({minSegmentLengthMS:500,smoothingTimeConstant:0.8});
             emitter.startListening();
             emitter.on('segment', ({ audioBuffer }) => {
                 //emitter.stopListening();
-                handleSegment(audioBuffer,)
+                handleSegment(audioBuffer)
             });
         }
-        return ()=>enableEmitter=false;
+        return ()=>{window.enableEmitter=false;
+            setStartListening(false);
+        }
     }, []);
-
 
     return (
         <div style={{ width: '100%', height: '100%', backgroundColor: 'black', position: 'fixed', top: 0, left: 0, zIndex: 20 }}>
