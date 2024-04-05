@@ -55,7 +55,7 @@ const AudioBtn = ({
       }
 
       try {
-        const audioResponse = await textToAudio(url, isPublic, formData)
+        const audioResponse = await textToAudio(url, isPublic, formData)//语音合成
         const blob_bytes = Buffer.from(audioResponse.data, 'latin1')
         const blob = new Blob([blob_bytes], { type: 'audio/wav' })
         const audioUrl = URL.createObjectURL(blob)
@@ -68,6 +68,11 @@ const AudioBtn = ({
         audio.onended = () => {
           setHasEnded(true)
           setIsPlaying(false)
+          if(window.showVoice){
+            window.enableEmitter=true;
+            window.dispatchEvent(new Event('changeEnableEmitter')); 
+          }
+          console.log('播放完了',value,window.showVoice)
         }
       }
       catch (error) {

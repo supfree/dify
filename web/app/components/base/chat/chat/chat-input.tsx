@@ -29,7 +29,13 @@ import {
   useDraggableUploader,
   useImageFiles,
 } from '@/app/components/base/image-uploader/hooks'
-import Voice from './voice'
+import dynamic from "next/dynamic"
+
+const Voice = dynamic(() => import("./Voice"), {
+  ssr: false,
+})
+
+const VOICE_SERVICE=JSON.parse(process.env.NEXT_PUBLIC_VOICE_SERVICE);
 
 type ChatInputProps = {
   visionConfig?: VisionConfig
@@ -70,7 +76,9 @@ const ChatInput: FC<ChatInputProps> = ({
   //语音转文字填入  
   const setQueryValue = (text: string) => {
     setQuery(text);
-
+    if(text.trim()==''){
+      return;
+    }
     if (onSend && 1 == 2) {
       onSend(text, files.filter(file => file.progress !== -1).map(fileItem => ({
         type: 'image',
@@ -135,22 +143,25 @@ const ChatInput: FC<ChatInputProps> = ({
   const media = useBreakpoints()
   const isMobile = media === MediaType.mobile
   const sendBtn = (
-    <div
-      className='group flex items-center justify-center w-8 h-8 rounded-lg hover:bg-[#EBF5FF] cursor-pointer'
-      onClick={handleSend}
-    >
-      <Send03
-        className={`
+    <div>
+      <div
+        className='group flex items-center justify-center w-8 h-8 rounded-lg hover:bg-[#EBF5FF] cursor-pointer'
+        onClick={handleSend}
+      >
+        <Send03
+          className={`
           w-5 h-5 text-gray-300 group-hover:text-primary-600
           ${!!query.trim() && 'text-primary-600'}
         `}
-      />
-      <div
-        className='w-5 h-5 text-gray-300 group-hover:text-primary-600'
-        onClick={() => setShowVoice(true)}
-      >📞</div>
-    </div>
+        />
 
+      </div>
+      {VOICE_SERVICE&&(<div
+        className='group flex items-center justify-center w-8 h-8 rounded-lg hover:bg-[#EBF5FF] cursor-pointer text-gray-300 group-hover:text-primary-600'
+        onClick={() => setShowVoice(true)}
+      >
+      📞</div>)}
+    </div>
   )
 
   return (

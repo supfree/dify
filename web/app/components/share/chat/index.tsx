@@ -645,7 +645,7 @@ const Main: FC<IMainProps> = ({
       async onCompleted(hasError?: boolean) {
         if (hasError)
           return
-
+        
         if (getConversationIdChangeBecauseOfNew()) {
           const { data: allConversations }: any = await fetchAllConversations()
           const newItem: any = await generationConversationName(isInstalledApp, installedAppInfo?.id, allConversations[0].id)

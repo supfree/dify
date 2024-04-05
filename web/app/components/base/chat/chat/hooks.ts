@@ -295,6 +295,10 @@ export const useChat = (
           })
         },
         async onCompleted(hasError?: boolean) {
+          if(!!window.showVoice){
+            window.readText=responseItem.content;
+            window.dispatchEvent(new Event('readText'));
+          }
           handleResponding(false)
 
           if (hasError)
@@ -311,7 +315,7 @@ export const useChat = (
             const newResponseItem = data.find((item: any) => item.id === responseItem.id)
             if (!newResponseItem)
               return
-
+ 
             const newChatList = produce(chatListRef.current, (draft) => {
               const index = draft.findIndex(item => item.id === responseItem.id)
               if (index !== -1) {
