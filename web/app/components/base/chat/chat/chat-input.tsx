@@ -29,13 +29,10 @@ import {
   useDraggableUploader,
   useImageFiles,
 } from '@/app/components/base/image-uploader/hooks'
-import dynamic from "next/dynamic"
+import Voice from "./voice"
 
-const Voice = dynamic(() => import("./Voice"), {
-  ssr: false,
-})
 
-const VOICE_SERVICE=JSON.parse(process.env.NEXT_PUBLIC_VOICE_SERVICE);
+const VOICE_SERVICE = JSON.parse(process.env.NEXT_PUBLIC_VOICE_SERVICE);
 
 type ChatInputProps = {
   visionConfig?: VisionConfig
@@ -76,10 +73,10 @@ const ChatInput: FC<ChatInputProps> = ({
   //语音转文字填入  
   const setQueryValue = (text: string) => {
     setQuery(text);
-    if(text.trim()==''){
+    if (text.trim() == '') {
       return;
     }
-    if (onSend && 1 == 2) {
+    if (onSend) {
       onSend(text, files.filter(file => file.progress !== -1).map(fileItem => ({
         type: 'image',
         transfer_method: fileItem.type,
@@ -143,29 +140,26 @@ const ChatInput: FC<ChatInputProps> = ({
   const media = useBreakpoints()
   const isMobile = media === MediaType.mobile
   const sendBtn = (
-    <div>
-      <div
-        className='group flex items-center justify-center w-8 h-8 rounded-lg hover:bg-[#EBF5FF] cursor-pointer'
-        onClick={handleSend}
-      >
-        <Send03
-          className={`
+    <div
+      className='group flex items-center justify-center w-8 h-8 rounded-lg hover:bg-[#EBF5FF] cursor-pointer'
+      onClick={handleSend}
+    >
+      <Send03
+        className={`
           w-5 h-5 text-gray-300 group-hover:text-primary-600
           ${!!query.trim() && 'text-primary-600'}
         `}
-        />
-
-      </div>
-      {VOICE_SERVICE&&(<div
-        className='group flex items-center justify-center w-8 h-8 rounded-lg hover:bg-[#EBF5FF] cursor-pointer text-gray-300 group-hover:text-primary-600'
-        onClick={() => setShowVoice(true)}
-      >
-      📞</div>)}
+      />
     </div>
   )
 
   return (
     <div className='relative'>
+      {VOICE_SERVICE && (<div
+        style={{position:'absolute',right:'130px',top:'16px',color:'gray',fontSize:'12px',cursor:'pointer'}}
+        onClick={() => setShowVoice(true)}
+      >
+        📞</div>)}
       <div
         className={`
           p-[5.5px] max-h-[150px] bg-white border-[1.5px] border-gray-200 rounded-xl overflow-y-auto

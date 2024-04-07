@@ -6,7 +6,7 @@ import s from './style.module.css'
 import Tooltip from '@/app/components/base/tooltip'
 import { randomString } from '@/utils'
 import { textToAudio } from '@/service/share'
-
+const SPEECH_SYNTHESIS_API_URL = process.env.NEXT_PUBLIC_SPEECH_SYNTHESIS_API_URL;
 type AudioBtnProps = {
   value: string
   voice?: string
@@ -35,50 +35,33 @@ const AudioBtn = ({
   }
 
   const playAudio = async () => {
-    const formData = new FormData()
-    if (value !== '') {
-      formData.append('text', removeCodeBlocks(value))
-      formData.append('voice', removeCodeBlocks(voice))
-
-      let url = ''
-      let isPublic = false
-
-      if (params.token) {
-        url = '/text-to-audio'
-        isPublic = true
-      }
-      else if (params.appId) {
-        if (pathname.search('explore/installed') > -1)
-          url = `/installed-apps/${params.appId}/text-to-audio`
-        else
-          url = `/apps/${params.appId}/text-to-audio`
-      }
-
-      try {
-        const audioResponse = await textToAudio(url, isPublic, formData)//语音合成
-        const blob_bytes = Buffer.from(audioResponse.data, 'latin1')
-        const blob = new Blob([blob_bytes], { type: 'audio/wav' })
-        const audioUrl = URL.createObjectURL(blob)
-        const audio = new Audio(audioUrl)
-        audioRef.current = audio
-        audio.play().then(() => {}).catch(() => {
-          setIsPlaying(false)
-          URL.revokeObjectURL(audioUrl)
-        })
-        audio.onended = () => {
-          setHasEnded(true)
-          setIsPlaying(false)
-          if(window.showVoice){
-            window.enableEmitter=true;
-            window.dispatchEvent(new Event('changeEnableEmitter')); 
+    try {
+      var xhr = new XMLHttpRequest();
+      xhr.open('post', SPEECH_SYNTHESIS_API_URL as string, true)
+      xhr.setRequestHeader("Content-Type", "text/plain");
+      xhr.setRequestHeader("Format", "webm-24khz-16bit-mono-opus");
+      xhr.responseType = 'blob';
+      xhr.send(`<speak xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" version="1.0" xml:lang="en-US"><voice name="zh-CN-YunjianNeural"><prosody rate="0%" pitch="0%">${removeCodeBlocks(value)}</prosody ></voice ></speak >`);
+      xhr.onload = function () {
+          if (xhr.status == 200) {
+              const blob = this.response;
+              const audioUrl = URL.createObjectURL(blob)
+              const audio = new Audio(audioUrl)
+              audioRef.current = audio
+              audio.play().then(() => { }).catch(() => {
+                  URL.revokeObjectURL(audioUrl)
+              })
+              audio.onended = () => {
+                  console.log('播放完了')
+              }
+          } else {
           }
-          console.log('播放完了',value,window.showVoice)
-        }
       }
-      catch (error) {
-        setIsPlaying(false)
+
+    } catch (error) {
         console.error('Error playing audio:', error)
-      }
+    } finally {
+
     }
   }
   const togglePlayPause = () => {
