@@ -295,7 +295,7 @@ const Voice: React.FC<VoiceType> = ({ onClose, onVoiceEnd }) => {
     const voiceColor=isRecording?'#89bceb':'#358fe4';
     return (
         <div style={{ width: '100%', height: '100%', backgroundColor: 'black', position: 'fixed', top: 0, left: 0, zIndex: 20 }}>
-            <div style={{ textAlign: 'center', position: 'absolute', top: '60px', left: '0', width: '100%', color: 'white', fontWeight: 'bold' }}>{appData.site.title}</div>
+            <div style={{ textAlign: 'center', position: 'absolute', top: '60px', left: '0', width: '100%', color: 'white', fontWeight: 'bold' }}>{!!appData?appData.site.title:'语音助手'}</div>
             <div style={{ width: '200px', height: '200px', borderRadius: '50%', backgroundColor: 'white', top: '160px', position: 'absolute', left: '50%', marginLeft: '-100px' }}>
                 <img src="/voice.png" style={{ borderRadius: '50%', width: '180px', height: '180px', marginTop: '10px', marginLeft: '10px' }} />
             </div>
