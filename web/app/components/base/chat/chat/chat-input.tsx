@@ -32,7 +32,7 @@ import {
 import Voice from "./voice"
 
 
-const VOICE_SERVICE = JSON.parse(process.env.NEXT_PUBLIC_VOICE_SERVICE);
+const VOICE_SERVICE = true;
 
 type ChatInputProps = {
   visionConfig?: VisionConfig

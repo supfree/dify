@@ -5,10 +5,8 @@ import { useRecorder } from 'react-microphone-recorder';
 import lamejs from 'lamejs'
 
 
-const SPEECH_RECOGNITION_API_URL = process.env.NEXT_PUBLIC_SPEECH_RECOGNITION_API_URL;
-const SPEECH_SYNTHESIS_API_URL = process.env.NEXT_PUBLIC_SPEECH_SYNTHESIS_API_URL;
-const AK = process.env.NEXT_PUBLIC_BAIDU_API_AK;
-const SK = process.env.NEXT_PUBLIC_BAIDU_API_SK;
+const SPEECH_RECOGNITION_API_URL =  'https://agent.yuanshudian.com/asr?encode=true&task=transcribe&language=zh&word_timestamps=false&output=txt';
+const SPEECH_SYNTHESIS_API_URL = 'https://agent.yuanshudian.com/ra';
 
 type VoiceType = {
     onClose: () => void,
@@ -158,7 +156,7 @@ const Voice: React.FC<VoiceType> = ({ onClose, onVoiceEnd }) => {
                 var MP3Blob = audioBufferToWav(audioBuffer);
                 const formData = new FormData()
                 formData.append('file', MP3Blob, 'audio.mp3');
-                const url = SPEECH_RECOGNITION_API_URL + `?AK=${AK}&SK=${SK}&t=${new Date()}`;
+                const url = SPEECH_RECOGNITION_API_URL ;
                 try {
                     var xhr = new XMLHttpRequest();
                     xhr.open('post', url)
