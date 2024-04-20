@@ -142,7 +142,7 @@ const Voice: React.FC<VoiceType> = ({ onClose, onVoiceEnd }) => {
     const [blobUrl, setBlobUrl] = useState<string | undefined>('');
 
 
-    const { audioBlob, startRecording, stopRecording, audioURL, recordingState, isRecording, audioFile } = useRecorder();
+    const { audioBlob, startRecording, stopRecording, audioURL, isRecording } = useRecorder();
     function handleSegment() {
         if (!audioBlob || submitting) {
             return;
@@ -183,6 +183,7 @@ const Voice: React.FC<VoiceType> = ({ onClose, onVoiceEnd }) => {
 
     }
     const start = () => {
+        stopPlay();
         if (submitting) {
             return;
         }
@@ -197,6 +198,13 @@ const Voice: React.FC<VoiceType> = ({ onClose, onVoiceEnd }) => {
         handleSegment();
     }
 
+    const stopPlay = () => {
+        if (!!audioRef.current) {
+            audioRef.current.pause();
+        }
+    }
+
+
     useEffect(() => {
         if (audioURL != null) {
             setBlobUrl(audioURL);
@@ -206,13 +214,18 @@ const Voice: React.FC<VoiceType> = ({ onClose, onVoiceEnd }) => {
 
     useEffect(() => {
         const handleKeyDown = (event) => {
-            if (event.key === 'Control') {
+            if (event.key === 'Alt') {
+                if(!!window.isSpaceKeydown){
+                    return ;
+                }
+                window.isSpaceKeydown=true;
                 start();
             }
         };
 
         const handleKeyUp = (event) => {
-            if (event.key === 'Control') {
+            if (event.key === 'Alt') {
+                window.isSpaceKeydown=false;
                 stop();
             }
         };
@@ -230,6 +243,7 @@ const Voice: React.FC<VoiceType> = ({ onClose, onVoiceEnd }) => {
     //播放
     const playAudio = async (text) => {
         setIsAnswering(true);
+        stopPlay();
         try {
             var xhr = new XMLHttpRequest();
             xhr.open('post', SPEECH_SYNTHESIS_API_URL as string, true)
@@ -274,11 +288,15 @@ const Voice: React.FC<VoiceType> = ({ onClose, onVoiceEnd }) => {
         window.addEventListener('readText', (e) => {
             setReadText(removeCodeBlocks(window.readText));
         });
+        window.addEventListener('stopPlay', () => {
+            stopPlay();
+        });
 
         return () => {
             window.showVoice = false;
             window.removeEventListener('changeEnableEmitter', () => setStartListening(window.enableEmitter));
             window.removeEventListener('readText', () => { });
+            window.removeEventListener('stopPlay', () => {stopPlay(); });
         }
     }, []);
 
