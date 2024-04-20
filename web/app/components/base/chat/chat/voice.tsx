@@ -4,7 +4,6 @@ import { useChatWithHistoryContext } from '../chat-with-history/context'
 import { useRecorder } from 'react-microphone-recorder';
 import lamejs from 'lamejs'
 
-
 const SPEECH_RECOGNITION_API_URL =  'https://agent.yuanshudian.com/asr?encode=true&task=transcribe&language=zh&word_timestamps=false&output=txt';
 const SPEECH_SYNTHESIS_API_URL = 'https://agent.yuanshudian.com/ra';
 
@@ -155,7 +154,7 @@ const Voice: React.FC<VoiceType> = ({ onClose, onVoiceEnd }) => {
             audioContext.decodeAudioData(arrayBuffer, (audioBuffer) => {
                 var MP3Blob = audioBufferToWav(audioBuffer);
                 const formData = new FormData()
-                formData.append('file', MP3Blob, 'audio.mp3');
+                formData.append('audio_file', MP3Blob, 'audio.mp3');
                 const url = SPEECH_RECOGNITION_API_URL ;
                 try {
                     var xhr = new XMLHttpRequest();
@@ -163,11 +162,7 @@ const Voice: React.FC<VoiceType> = ({ onClose, onVoiceEnd }) => {
                     xhr.send(formData);
                     xhr.onload = function () {
                         if (xhr.status == 200) {
-                            const result = JSON.parse(xhr.responseText);
-                            const text = result.result[0] || '';
-                            if (text.trim() === '') {
-                                return;
-                            }
+                            const text = xhr.responseText;
                             onVoiceEnd(text);
                         } else {
                         }
@@ -306,7 +301,7 @@ const Voice: React.FC<VoiceType> = ({ onClose, onVoiceEnd }) => {
             <div onMouseDown={start}
                 onMouseUp={stop}
                 onTouchStart={start}
-                onTouchEnd={stop} style={{ backgroundColor: voiceColor, width: '80px', height: '80px', lineHeight: '80px', textAlign: 'center', borderRadius: '50%', color: 'white', fontSize: '30px', fontWeight: 'bold', position: 'absolute', left: '50%', marginLeft: '-40px', bottom: '50px', cursor:'pointer' }}>★
+                onTouchEnd={stop} style={{ backgroundColor: voiceColor, width: '80px', height: '80px', lineHeight: '80px', textAlign: 'center', borderRadius: '50%', color: 'white', fontSize: '30px', fontWeight: 'bold', position: 'absolute', left: '50%', marginLeft: '-40px', bottom: '50px', cursor:'pointer',userSelect:'none'}}>★
             </div>
             <div onClick={() => onClose()} style={{ width: '50px', height: '50px', backgroundColor: '#EA4D3E', borderRadius: '50%', position: 'absolute', bottom: '65px', left: '50%', marginLeft: '-120px', fontSize: '20px', lineHeight: '50px', color: '#ffffff', textAlign: 'center', cursor:'pointer' }}
             >×</div>
