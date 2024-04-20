@@ -93,7 +93,7 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.1", "@babel/runtime@^7.11.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.6", "@babel/runtime@^7.20.7", "@babel/runtime@^7.21.0", "@babel/runtime@^7.21.5", "@babel/runtime@^7.22.3", "@babel/runtime@^7.23.2", "@babel/runtime@^7.24.1", "@babel/runtime@^7.3.1":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.1", "@babel/runtime@^7.11.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.6", "@babel/runtime@^7.20.7", "@babel/runtime@^7.21.0", "@babel/runtime@^7.21.5", "@babel/runtime@^7.22.3", "@babel/runtime@^7.23.2", "@babel/runtime@^7.3.1":
   version "7.24.4"
   resolved "https://mirrors.huaweicloud.com/repository/npm/@babel/runtime/-/runtime-7.24.4.tgz"
   integrity sha512-dkxf7+hn8mFBwKjs9bvBlArzLVxVbS8usaPUDd5p2a9JCL9tB8OaOVN1isD4+Xyk4ns89/xeOmbQvgdK7IIVdA==
@@ -1574,14 +1574,6 @@ audiobuffer-to-wav@^1.0.0:
   resolved "https://mirrors.huaweicloud.com/repository/npm/audiobuffer-to-wav/-/audiobuffer-to-wav-1.0.0.tgz"
   integrity sha512-CAoir4NRrAzAgYo20tEMiKZR84coE8bq/L+H2kwAaULVY4+0xySsEVtNT5raqpzmH6y0pqzY6EmoViLd9W8F/w==
 
-automation-events@^7.0.3:
-  version "7.0.3"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/automation-events/-/automation-events-7.0.3.tgz"
-  integrity sha512-5JhQDPpXvJLGgrDmr3xU9PX0ZxeJLZ1xJVkGmmRXkXNS/J9TSazLn/gu1s02qLI68RR40JpW6Uok9eaKtu4wBQ==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    tslib "^2.6.2"
-
 autoprefixer@^10.4.14:
   version "10.4.14"
   resolved "https://mirrors.huaweicloud.com/repository/npm/autoprefixer/-/autoprefixer-10.4.14.tgz"
@@ -1673,16 +1665,6 @@ braces@^3.0.2, braces@~3.0.2:
   integrity sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==
   dependencies:
     fill-range "^7.0.1"
-
-broker-factory@^3.0.96:
-  version "3.0.96"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/broker-factory/-/broker-factory-3.0.96.tgz"
-  integrity sha512-wztvXRl5EnmsWpU6tWJX9K3oNyAsU2QN3RiK7Gsxz+wmIYRD9VBn+n/hH5alUKtTUROdxgs/KlnMTEGJuHAd4g==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    fast-unique-numbers "^9.0.3"
-    tslib "^2.6.2"
-    worker-factory "^7.0.23"
 
 browserslist@^4.21.10, browserslist@^4.21.5, "browserslist@>= 4.21.0":
   version "4.22.3"
@@ -3250,38 +3232,6 @@ extend@^3.0.0:
   resolved "https://mirrors.huaweicloud.com/repository/npm/extend/-/extend-3.0.2.tgz"
   integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
 
-extendable-media-recorder-wav-encoder-broker@^7.0.99:
-  version "7.0.99"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/extendable-media-recorder-wav-encoder-broker/-/extendable-media-recorder-wav-encoder-broker-7.0.99.tgz"
-  integrity sha512-K5rL3Ry+qQRWObB4En5Eiw8NL3DBRp5ThrOxtmtpvrZnDEaIuYBlIpmg3LF9RrFLyMhstj3z6Rd8hsNRp9hP1Q==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    broker-factory "^3.0.96"
-    extendable-media-recorder-wav-encoder-worker "^8.0.96"
-    tslib "^2.6.2"
-
-extendable-media-recorder-wav-encoder-worker@^8.0.96:
-  version "8.0.96"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/extendable-media-recorder-wav-encoder-worker/-/extendable-media-recorder-wav-encoder-worker-8.0.96.tgz"
-  integrity sha512-zj/QbGr0SQLMGZuHCiv7WY6dUm2fhIhNbau1llVQDDvZe1aaqd+IUGai1y3qYRv+yg3lWI644fXI+4wsRWvATw==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    tslib "^2.6.2"
-    worker-factory "^7.0.23"
-
-extendable-media-recorder@^9.1.13:
-  version "9.1.13"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/extendable-media-recorder/-/extendable-media-recorder-9.1.13.tgz"
-  integrity sha512-viHMp1CQEFZ2q3UL/8avsmO5pb2WHXApip7TKikrmmLeBgvayIllvp4yy4wkMbtOQODIkLZYhoniRa4SVYwjkQ==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    media-encoder-host "^8.0.112"
-    multi-buffer-data-view "^6.0.3"
-    recorder-audio-worklet "^6.0.24"
-    standardized-audio-context "^25.3.68"
-    subscribable-things "^2.1.34"
-    tslib "^2.6.2"
-
 fake-xml-http-request@^2.1.2:
   version "2.1.2"
   resolved "https://mirrors.huaweicloud.com/repository/npm/fake-xml-http-request/-/fake-xml-http-request-2.1.2.tgz"
@@ -3312,14 +3262,6 @@ fast-levenshtein@^2.0.6:
   version "2.0.6"
   resolved "https://mirrors.huaweicloud.com/repository/npm/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz"
   integrity sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==
-
-fast-unique-numbers@^9.0.3:
-  version "9.0.3"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/fast-unique-numbers/-/fast-unique-numbers-9.0.3.tgz"
-  integrity sha512-Aq5qOCVsmjsJbrGr4bxA3v3P1yQGBSUV2OobO2mE6jbux8fMPYbJlSgfZyXiLCy+Lo1NaK6UtbN2CTBSBt+AvA==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    tslib "^2.6.2"
 
 fastest-levenshtein@^1.0.16:
   version "1.0.16"
@@ -5164,37 +5106,6 @@ mdast-util-to-string@^3.1.0:
   dependencies:
     "@types/mdast" "^3.0.0"
 
-media-encoder-host-broker@^7.0.101:
-  version "7.0.101"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/media-encoder-host-broker/-/media-encoder-host-broker-7.0.101.tgz"
-  integrity sha512-lZ2jQelZK6omB5fc+AE87MHGFqdivAabuhf8trvcId4GTYXS7BQ2J+FDhpd5r9iVsfLAlOKyouC73NNthvVWfg==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    broker-factory "^3.0.96"
-    fast-unique-numbers "^9.0.3"
-    media-encoder-host-worker "^9.1.23"
-    tslib "^2.6.2"
-
-media-encoder-host-worker@^9.1.23:
-  version "9.1.23"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/media-encoder-host-worker/-/media-encoder-host-worker-9.1.23.tgz"
-  integrity sha512-67s1Mu9irKwHRAYiaNJrDTJUsGrlwWrVhN9tNM47nieARli1ZPHtKJ39PV+Qgn5bfqK81UyHIVirN2xWd8i0oQ==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    extendable-media-recorder-wav-encoder-broker "^7.0.99"
-    tslib "^2.6.2"
-    worker-factory "^7.0.23"
-
-media-encoder-host@^8.0.112:
-  version "8.0.112"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/media-encoder-host/-/media-encoder-host-8.0.112.tgz"
-  integrity sha512-9zzaN3Jg6rAAcwPYYvJMmluLB27U/kF6aJRXW4z3c039p8htnTXUN8ZilA02XEKQdOibu0EHNeF4w/nEAcQgYQ==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    media-encoder-host-broker "^7.0.101"
-    media-encoder-host-worker "^9.1.23"
-    tslib "^2.6.2"
-
 "memoize-one@>=3.1.1 <6":
   version "5.2.1"
   resolved "https://mirrors.huaweicloud.com/repository/npm/memoize-one/-/memoize-one-5.2.1.tgz"
@@ -5776,14 +5687,6 @@ ms@^2.1.1, ms@2.1.2:
 ms@^2.1.2:
   version "2.1.3"
 
-multi-buffer-data-view@^6.0.3:
-  version "6.0.3"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/multi-buffer-data-view/-/multi-buffer-data-view-6.0.3.tgz"
-  integrity sha512-QxvFlGmLwLBkHfOvj+eUIAzTPFS3vuEAHsH7JJR7e8/VreLeUkC8lLfofOoIdm5u8BHEelMzh/6U/Zw6urFWEw==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    tslib "^2.6.2"
-
 mute-stream@^1.0.0:
   version "1.0.0"
 
@@ -6190,6 +6093,11 @@ open@^9.1.0:
     define-lazy-prop "^3.0.0"
     is-inside-container "^1.0.0"
     is-wsl "^2.2.0"
+
+opencc-js@^1.0.5:
+  version "1.0.5"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/opencc-js/-/opencc-js-1.0.5.tgz"
+  integrity sha512-LD+1SoNnZdlRwtYTjnQdFrSVCAaYpuDqL5CkmOaHOkKoKh7mFxUicLTRVNLU5C+Jmi1vXQ3QL4jWdgSaa4sKjg==
 
 optionator@^0.9.1:
   version "0.9.3"
@@ -6825,28 +6733,6 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
-recorder-audio-worklet-processor@^5.0.17:
-  version "5.0.17"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/recorder-audio-worklet-processor/-/recorder-audio-worklet-processor-5.0.17.tgz"
-  integrity sha512-5mtOpnpwyLcjUCicC88pDEpC+X7Ex/4kVqR0r+cAsmfRrMRbveaDe32mP/1RuZIuRk6bhuBndFC0XX8MatF9MA==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    tslib "^2.6.2"
-
-recorder-audio-worklet@^6.0.24:
-  version "6.0.24"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/recorder-audio-worklet/-/recorder-audio-worklet-6.0.24.tgz"
-  integrity sha512-ViX/TBwggm3YpRLLdR71+vbgOjHc9iEMXgV7ct46B3QexZ8Z+sPeuYiwc1Sxu3oALfPhvhKddrie3HqH8AXwCA==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    broker-factory "^3.0.96"
-    fast-unique-numbers "^9.0.3"
-    recorder-audio-worklet-processor "^5.0.17"
-    standardized-audio-context "^25.3.68"
-    subscribable-things "^2.1.34"
-    tslib "^2.6.2"
-    worker-factory "^7.0.23"
-
 recorder-js@^1.0.7:
   version "1.0.7"
   resolved "https://mirrors.huaweicloud.com/repository/npm/recorder-js/-/recorder-js-1.0.7.tgz"
@@ -7073,11 +6959,6 @@ rw@1:
   version "1.3.3"
   resolved "https://mirrors.huaweicloud.com/repository/npm/rw/-/rw-1.3.3.tgz"
   integrity sha512-PdhdWy89SiZogBLaw42zdeqtRJ//zFd2PgQavcICDUgJT5oW10QCRKbJ6bg4r0/UY2M6BWd5tkxuGFRvCkgfHQ==
-
-rxjs-interop@^2.0.0:
-  version "2.0.0"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/rxjs-interop/-/rxjs-interop-2.0.0.tgz"
-  integrity sha512-ASEq9atUw7lualXB+knvgtvwkCEvGWV2gDD/8qnASzBkzEARZck9JAyxmY8OS6Nc1pCPEgDTKNcx+YqqYfzArw==
 
 rxjs@^7.8.0:
   version "7.8.1"
@@ -7434,15 +7315,6 @@ ssri@^10.0.0, ssri@^10.0.5:
   dependencies:
     minipass "^7.0.3"
 
-standardized-audio-context@^25.3.68:
-  version "25.3.68"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/standardized-audio-context/-/standardized-audio-context-25.3.68.tgz"
-  integrity sha512-XxVOFwlnU3Rq7mfTpxRhuwgDf00HmG4GzpSRQcMwgoXLa+k/9n8HT9dpsLZt0A1YH+hO/kLxaBMOIv5fKV/Gcg==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    automation-events "^7.0.3"
-    tslib "^2.6.2"
-
 streamsearch@^1.1.0:
   version "1.1.0"
   resolved "https://mirrors.huaweicloud.com/repository/npm/streamsearch/-/streamsearch-1.1.0.tgz"
@@ -7605,15 +7477,6 @@ stylis@^4.1.3:
   version "4.3.0"
   resolved "https://mirrors.huaweicloud.com/repository/npm/stylis/-/stylis-4.3.0.tgz"
   integrity sha512-E87pIogpwUsUwXw7dNyU4QDjdgVMy52m+XEOPEKUn161cCzWjjhPSQhByfd1CcNvrOLnXQ6OnnZDwnJrz/Z4YQ==
-
-subscribable-things@^2.1.34:
-  version "2.1.34"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/subscribable-things/-/subscribable-things-2.1.34.tgz"
-  integrity sha512-lQ+yAXc4XvQT/GyGh/Nlo0lFHXBK5teLW/FTFrbmmKX/DtMqpd7TPlsdNSIvV6EHuqhQoehdhNYMqDoN89WQ8A==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    rxjs-interop "^2.0.0"
-    tslib "^2.6.2"
 
 sucrase@^3.32.0:
   version "3.34.0"
@@ -7836,7 +7699,7 @@ tslib@^1.8.1:
   resolved "https://mirrors.huaweicloud.com/repository/npm/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.1.0, tslib@^2.4.0, tslib@^2.4.1, "tslib@^2.4.1 || ^1.9.3", tslib@^2.5.0, tslib@^2.6.0, tslib@^2.6.2:
+tslib@^2.1.0, tslib@^2.4.0, tslib@^2.4.1, "tslib@^2.4.1 || ^1.9.3", tslib@^2.5.0, tslib@^2.6.0:
   version "2.6.2"
   resolved "https://mirrors.huaweicloud.com/repository/npm/tslib/-/tslib-2.6.2.tgz"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
@@ -8292,15 +8155,6 @@ wide-align@^1.1.5:
   version "1.1.5"
   dependencies:
     string-width "^1.0.2 || 2 || 3 || 4"
-
-worker-factory@^7.0.23:
-  version "7.0.23"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/worker-factory/-/worker-factory-7.0.23.tgz"
-  integrity sha512-MqNAajaUNlfqlnj6S/vjN/eWdKfDodeEYwoi0ZDAmYeqFLVRaGuxIaXaAhtK+7cD4JtK9j6Y5h2nHoOYjSp5tg==
-  dependencies:
-    "@babel/runtime" "^7.24.1"
-    fast-unique-numbers "^9.0.3"
-    tslib "^2.6.2"
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
   version "7.0.0"

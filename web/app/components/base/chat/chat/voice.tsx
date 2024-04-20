@@ -3,6 +3,8 @@ import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { useChatWithHistoryContext } from '../chat-with-history/context'
 import { useRecorder } from 'react-microphone-recorder';
 import lamejs from 'lamejs'
+import * as OpenCC from 'opencc-js';
+
 
 const SPEECH_RECOGNITION_API_URL =  'https://agent.yuanshudian.com/asr?encode=true&task=transcribe&language=zh&word_timestamps=false&output=txt';
 const SPEECH_SYNTHESIS_API_URL = 'https://agent.yuanshudian.com/ra';
@@ -162,8 +164,9 @@ const Voice: React.FC<VoiceType> = ({ onClose, onVoiceEnd }) => {
                     xhr.send(formData);
                     xhr.onload = function () {
                         if (xhr.status == 200) {
+                            const converter = OpenCC.Converter({ from: 'hk', to: 'cn' });
                             const text = xhr.responseText;
-                            onVoiceEnd(text);
+                            onVoiceEnd(converter(text));
                         } else {
                         }
                         //playAudio('我是你孙子');
